@@ -1,0 +1,9 @@
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\bin\Debug\TreesTest.dll
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\bin\Debug\TreesTest.pdb
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\bin\Debug\nunit.framework.dll
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\bin\Debug\Trees.exe
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\bin\Debug\Trees.pdb
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\bin\Debug\nunit.framework.xml
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\obj\Debug\TreesTest.csprojResolveAssemblyReference.cache
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\obj\Debug\TreesTest.dll
+C:\Users\Mateusz\documents\visual studio 2015\Projects\Trees\TreesTest\obj\Debug\TreesTest.pdb
