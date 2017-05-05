@@ -18,10 +18,11 @@ namespace Trees
         public DnaSequence Evolve(DnaSequence dnaSequence, double time)
         {
             DnaSequence evolvedDnaSequence = new DnaSequence();
-            foreach(DnaBase dnaBase in dnaSequence)
+            Parallel.ForEach(dnaSequence, (dnaBase) =>
             {
                 evolvedDnaSequence.Add(this.evolutionModel.GenerateNextBase(dnaBase, time));
             }
+            );
             return evolvedDnaSequence;
         }
     }

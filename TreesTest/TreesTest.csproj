@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DnaBaseTest.cs" />
+    <Compile Include="DnaSequenceEvolverTest.cs" />
     <Compile Include="DnaSequenceTest.cs" />
     <Compile Include="PhyloTreeNodeTest.cs" />
     <Compile Include="PhyloTreeTest.cs" />
