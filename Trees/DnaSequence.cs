@@ -43,6 +43,11 @@ namespace Trees
             return dnaSequence.PrintSequence();
         }
 
+        public static implicit operator DnaSequence(string dnaSequenceAsString)
+        {
+            return new DnaSequence(dnaSequenceAsString);
+        }
+
         public IEnumerator<DnaBase> GetEnumerator()
         {
             return (IEnumerator<DnaBase>)this.dnaSequence.GetEnumerator();

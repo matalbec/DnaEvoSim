@@ -22,9 +22,9 @@ namespace Trees
             return this.dnaSequence;
         }
 
-        public void AppendChildren(PhyloTreeNode childNode)
+        public void AppendChildren(List<PhyloTreeNode> childNodes)
         {
-            this.childrenNodes.Add(childNode);
+            this.childrenNodes.AddRange(childNodes);
         }
 
         public List<PhyloTreeNode> GetChildrenNodes()

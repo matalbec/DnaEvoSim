@@ -15,8 +15,11 @@ namespace Trees
             double alpha = 0;
             double beta = 0;
 
+            Console.WriteLine("Please input root sequence:");
             userInputSequence = Console.ReadLine();
+            Console.WriteLine("Alpha paramter for kimura model:");
             alpha = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Beta paramter for kimura model:");
             beta = Convert.ToDouble(Console.ReadLine());
 
             EvolutionModel kimuraModel = new EvolutionModel(alpha, beta);
@@ -26,9 +29,9 @@ namespace Trees
             PhyloTree tree = new PhyloTree(rootNode, sequenceEvolver);
             for (int i = 0; i < 5; i++)
             {
-                Console.WriteLine("Printing generation at time t= {0}\n{1}",i, tree.PrintCurrentGenerationSequences());
                 tree.EvolveAllChildren(i);
             }
+            Console.Write(tree.PrintTree());
             while (true)
             {
 

@@ -28,6 +28,14 @@ namespace TreesTest
         }
 
         [Test]
+        public void TestImplicitConvertionFromString()
+        {
+            string dnaSequenceAsString = "AACCGGTGA";
+            DnaSequence dnaSequence = dnaSequenceAsString;
+            Assert.AreEqual(dnaSequenceAsString, dnaSequence.PrintSequence());
+        }
+
+        [Test]
         public void TestDnaSequenceCreationFromInitializer()
         {
             DnaSequence dnaSequence = new DnaSequence() {"A", "C", "C", "T"};
