@@ -15,6 +15,7 @@ namespace Trees
             double alpha = 0;
             double beta = 0;
             double evolutionTime = 0;
+            double meanValue = 0;
 
             Console.WriteLine("Please input root sequence:");
             userInputSequence = Console.ReadLine();
@@ -24,7 +25,22 @@ namespace Trees
             beta = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Specify evolution time:");
             evolutionTime = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Specify mean value for exponential distribution");
+            meanValue = Convert.ToDouble(Console.ReadLine());
 
+
+            ExponentialDistribution expDistribution = new ExponentialDistribution(meanValue);
+            Random rnd = new Random();
+            Console.WriteLine("Exponential");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("Got number: {0}", expDistribution.NextDouble());
+            }
+            Console.WriteLine("Uniform");
+            for (int i = 0; i < 10; i++)
+            {
+                Console.WriteLine("Got number: {0}", rnd.NextDouble());
+            }
             EvolutionModel kimuraModel = new EvolutionModel(alpha, beta);
             DnaSequence userSequence = new DnaSequence(userInputSequence);
             DnaSequenceEvolver sequenceEvolver = new DnaSequenceEvolver(kimuraModel);
@@ -34,7 +50,6 @@ namespace Trees
             {
                 tree.EvolveAllChildren(i);
             }
-            Console.Write(tree.PrintTree());
             while (true)
             {
 
