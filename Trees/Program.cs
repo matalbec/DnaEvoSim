@@ -14,6 +14,7 @@ namespace Trees
             string userInputSequence = string.Empty;
             double alpha = 0;
             double beta = 0;
+            double evolutionTime = 0;
 
             Console.WriteLine("Please input root sequence:");
             userInputSequence = Console.ReadLine();
@@ -21,6 +22,8 @@ namespace Trees
             alpha = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Beta paramter for kimura model:");
             beta = Convert.ToDouble(Console.ReadLine());
+            Console.WriteLine("Specify evolution time:");
+            evolutionTime = Convert.ToDouble(Console.ReadLine());
 
             EvolutionModel kimuraModel = new EvolutionModel(alpha, beta);
             DnaSequence userSequence = new DnaSequence(userInputSequence);
