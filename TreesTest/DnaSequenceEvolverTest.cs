@@ -17,9 +17,9 @@ namespace TreesTest
         {
             EvolutionModel kimuraModel = new EvolutionModel(0.1, 0.3);
             DnaSequenceEvolver evolver = new DnaSequenceEvolver(kimuraModel);
-            string dnaSequence = "AAA";
-            string evolvedSequence = evolver.Evolve(dnaSequence, 1);
-            Assert.AreEqual(dnaSequence.Length, evolvedSequence.Length);
+            DnaSequence dnaSequence = new DnaSequence("AAA");
+            DnaSequence evolvedSequence = evolver.Evolve(dnaSequence, 1);
+            Assert.AreEqual(dnaSequence.Size(), evolvedSequence.Size());
         }
     }
 }

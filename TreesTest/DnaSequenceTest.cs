@@ -54,5 +54,29 @@ namespace TreesTest
                 iterator++;
             }
         }
+
+        [Test]
+        public void TestSizeGetting()
+        {
+            DnaSequence dnaSequence = new DnaSequence("AAGC");
+            Assert.AreEqual(4, dnaSequence.Size());
+        }
+
+        [Test]
+        public void TestElementAt()
+        {
+            DnaSequence dnaSequence = new DnaSequence("ACGT");
+            DnaBase dnaBase = dnaSequence.ElementAt(1);
+            Assert.AreEqual('C', (char)dnaBase);
+        }
+
+        [Test]
+        public void TestIndexer()
+        {
+            DnaSequence dnaSequence = new DnaSequence("ACGT");
+            Assert.AreEqual('C', (char)dnaSequence[1]);
+            dnaSequence[2] = 'C';
+
+        }
     }
 }

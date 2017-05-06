@@ -6,21 +6,67 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
+
+    public class DnaSequenceEnumerator : IEnumerator<DnaBase>
+    {
+        private string dnaSequence;
+        private int currentPosition;
+
+        public DnaSequenceEnumerator(string dnaSequence)
+        {
+            this.dnaSequence = dnaSequence;
+            this.currentPosition = -1;
+        }
+
+        public bool MoveNext()
+        {
+            this.currentPosition++;
+            return (this.currentPosition < this.dnaSequence.Length);
+        }
+
+        public void Reset()
+        {
+            this.currentPosition = -1;
+        }
+
+        object System.Collections.IEnumerator.Current
+        {
+            get
+            {
+                return this.Current;
+            }
+        }
+
+        public DnaBase Current
+        {
+            get
+            {
+                return this.dnaSequence.ElementAt(this.currentPosition);
+            }
+        }
+
+        void IDisposable.Dispose()
+        {
+
+        }
+    }
+
     public class DnaSequence : IEnumerable<DnaBase>
     {
-        private List<DnaBase> dnaSequence;
+        private string dnaSequence;
         public DnaSequence(string dnaSequence)
         {
-            this.dnaSequence = new List<DnaBase>();
-            foreach(char baseLetter in dnaSequence)
-            {
-                this.dnaSequence.Add(baseLetter);
-            }
+            this.dnaSequence = dnaSequence;
         }
 
         public DnaSequence()
         {
-            this.dnaSequence = new List<DnaBase>();
+            this.dnaSequence = string.Empty;
+        }
+
+        public DnaSequence(int size)
+        {
+            this.dnaSequence = new string('*', size);
         }
 
         public string PrintSequence()
@@ -35,7 +81,17 @@ namespace Trees
 
         public void Add(DnaBase item)
         {
-            this.dnaSequence.Add(item);
+            this.dnaSequence += item;
+        }
+
+        public int Size()
+        {
+            return this.dnaSequence.Length;
+        }
+
+        public DnaBase ElementAt(int position)
+        {
+            return this.dnaSequence.ElementAt(position);
         }
 
         public static implicit operator string(DnaSequence dnaSequence)
@@ -48,14 +104,34 @@ namespace Trees
             return new DnaSequence(dnaSequenceAsString);
         }
 
-        public IEnumerator<DnaBase> GetEnumerator()
-        {
-            return (IEnumerator<DnaBase>)this.dnaSequence.GetEnumerator();
-        }
-
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return GetEnumerator();
+            return this.GetEnumerator();
         }
+
+        IEnumerator<DnaBase> IEnumerable<DnaBase>.GetEnumerator()
+        {
+            return (IEnumerator<DnaBase>)this.GetEnumerator();
+        }
+
+        public DnaSequenceEnumerator GetEnumerator()
+        {
+            return new DnaSequenceEnumerator(this.dnaSequence);
+        }
+
+        public DnaBase this[int index]
+        {
+            get
+            {
+                return this.dnaSequence[index];
+            }
+            set
+            {
+                StringBuilder sb = new StringBuilder(this.dnaSequence);
+                sb[index] = value;
+                this.dnaSequence = sb.ToString();
+            }
+        }
+
     }
 }
