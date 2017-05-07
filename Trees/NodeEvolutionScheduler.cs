@@ -10,7 +10,6 @@ namespace Trees
     public class NodeEvolutionScheduler
     {
         private double overallEvolutionTime;
-        private Timer mainTimer;
         private List<Timer> timers;
         private bool SchedulerActive;
 
@@ -18,10 +17,7 @@ namespace Trees
         {
             this.overallEvolutionTime = overallEvolutionTime;
             this.SchedulerActive = false;
-            this.mainTimer = new Timer(overallEvolutionTime);
-            this.mainTimer.Elapsed += new ElapsedEventHandler(this.StopScheduler);
             this.timers = new List<Timer>();
-            this.mainTimer.Enabled = true;
             this.SchedulerActive = true;
         }
 
@@ -31,12 +27,13 @@ namespace Trees
             {
                 Timer evolutionTimer = new Timer(timeToEvolve);
                 evolutionTimer.Elapsed += new ElapsedEventHandler(node.EvolveNodeCallback);
+                evolutionTimer.AutoReset = false;
                 evolutionTimer.Enabled = true;
                 this.timers.Add(evolutionTimer);
             }
         }
 
-        private void StopScheduler(object sender, ElapsedEventArgs args)
+        public void StopScheduler()
         {
             this.SchedulerActive = false;
         }

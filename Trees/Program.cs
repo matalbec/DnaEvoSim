@@ -10,6 +10,10 @@ namespace Trees
     class Program
     {
 
+        private static NodeEvolutionScheduler scheduler;
+        private static PhyloTree tree;
+        private static Timer evolutionTimer;
+
         static void Main(string[] args)
         {
             string userInputSequence = string.Empty;
@@ -36,16 +40,21 @@ namespace Trees
             DnaSequence userSequence = new DnaSequence(userInputSequence);
             DnaSequenceEvolver sequenceEvolver = new DnaSequenceEvolver(kimuraModel);
             NodeEvolutionScheduler scheduler = new NodeEvolutionScheduler(evolutionTime);
+            Program.scheduler = scheduler;
             PhyloTree tree = new PhyloTree(userSequence, sequenceEvolver, expDistribution, scheduler);
+            Program.tree = tree;
+            Program.evolutionTimer = new Timer(evolutionTime);
+            Program.evolutionTimer.Elapsed += new ElapsedEventHandler(Program.EvolutionEndCallback);
+            Program.evolutionTimer.AutoReset = false;
+            Program.evolutionTimer.Enabled = true;
+            Console.ReadLine();
+        }
 
-            System.Threading.Thread.Sleep(10000);
-            Console.WriteLine("Attemtping to print tree");
-            Console.WriteLine(tree.PrintTree());
-            while (true)
-            {
-
-            }
-
+        static void EvolutionEndCallback(object sender, ElapsedEventArgs args)
+        {
+            Program.scheduler.StopScheduler();
+            Console.WriteLine("Printing Tree:");
+            Console.WriteLine(Program.tree.PrintTree());
         }
 
     }
