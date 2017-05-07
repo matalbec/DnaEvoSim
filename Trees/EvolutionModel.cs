@@ -61,11 +61,8 @@ namespace Trees
             List<double> TransitionVector = this.GetTransitionVector(currentBase, time);
             double randomResult = EvolutionModel.randomGen.NextDouble();
             double tresholdProbability = 0;
-            //Console.WriteLine("Transition probability at time t = {0}", time);
-            //Console.WriteLine("Random result = {0}", randomResult);
             for (int i = currentBase; i < currentBase + 4; i++)
             {
-                //Console.WriteLine("Transition to: {0}, probability: {1}", (DnaBase) i, TransitionVector.ElementAt(i % 4));
                 tresholdProbability += TransitionVector.ElementAt(i % 4);
                 if (randomResult <= tresholdProbability)
                 {

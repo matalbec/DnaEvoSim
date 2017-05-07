@@ -9,42 +9,10 @@ namespace Trees
     public class PhyloTree
     {
         private PhyloTreeNode rootNode;
-        private List<PhyloTreeNode> currentGeneration;
-        private DnaSequenceEvolver evolver;
 
-        public PhyloTree(PhyloTreeNode rootNode, DnaSequenceEvolver evolver)
+        public PhyloTree(DnaSequence rootDnaSequence, DnaSequenceEvolver evolver, ExponentialDistribution exp, NodeEvolutionScheduler scheduler)
         {
-            this.rootNode = rootNode;
-            this.currentGeneration = new List<PhyloTreeNode>() { rootNode };
-            this.evolver = evolver;
-        }
-
-        public void EvolveAllChildren(double time)
-        {
-            int numberOfChildren = this.currentGeneration.Count();
-            List<PhyloTreeNode> newGeneration = new List<PhyloTreeNode>();
-            foreach (PhyloTreeNode node in this.currentGeneration)
-            {
-                DnaSequence evolvedSequence1 = this.evolver.Evolve(node.GetNodeSequence(), time);
-                DnaSequence evolvedSequence2 = this.evolver.Evolve(node.GetNodeSequence(), time);
-                List<PhyloTreeNode> evolvedChildren = new List<PhyloTreeNode>() {
-                    new PhyloTreeNode(evolvedSequence1),
-                    new PhyloTreeNode(evolvedSequence2)
-                };
-                node.AppendChildren(evolvedChildren);
-                newGeneration.AddRange(evolvedChildren);
-            }
-            this.currentGeneration = newGeneration;
-        }
-
-        public string PrintCurrentGenerationSequences()
-        {
-            string currentGenerationSequences = string.Empty;
-            foreach(PhyloTreeNode node in this.currentGeneration)
-            {
-                currentGenerationSequences += ("Sequence: " + node.GetNodeSequence() + "\n");
-            }
-            return currentGenerationSequences;
+            this.rootNode = new PhyloTreeNode(rootDnaSequence, evolver, exp, scheduler);
         }
 
         private string PrintTreeRecursive(PhyloTreeNode node, int depthLevel)

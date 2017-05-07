@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Trees
 {
-    class ExponentialDistribution
+    public class ExponentialDistribution
     {
         private double meanValue;
         static private Random randomUniform = new Random();
@@ -16,10 +16,11 @@ namespace Trees
             this.meanValue = meanValue;
         }
 
+        //Scaled in ms
         public double NextDouble()
         {
             double randomUniform = ExponentialDistribution.randomUniform.NextDouble();
-            return (-1)* this.meanValue * Math.Log(1 - randomUniform);
+            return (-1000)* this.meanValue * Math.Log(1 - randomUniform);
         }
     }
 }

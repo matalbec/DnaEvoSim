@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace Trees
 {
@@ -25,35 +26,27 @@ namespace Trees
             beta = Convert.ToDouble(Console.ReadLine());
             Console.WriteLine("Specify evolution time:");
             evolutionTime = Convert.ToDouble(Console.ReadLine());
+            evolutionTime = evolutionTime * 1000;
             Console.WriteLine("Specify mean value for exponential distribution");
             meanValue = Convert.ToDouble(Console.ReadLine());
 
 
             ExponentialDistribution expDistribution = new ExponentialDistribution(meanValue);
-            Random rnd = new Random();
-            Console.WriteLine("Exponential");
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine("Got number: {0}", expDistribution.NextDouble());
-            }
-            Console.WriteLine("Uniform");
-            for (int i = 0; i < 10; i++)
-            {
-                Console.WriteLine("Got number: {0}", rnd.NextDouble());
-            }
             EvolutionModel kimuraModel = new EvolutionModel(alpha, beta);
             DnaSequence userSequence = new DnaSequence(userInputSequence);
             DnaSequenceEvolver sequenceEvolver = new DnaSequenceEvolver(kimuraModel);
-            PhyloTreeNode rootNode = new PhyloTreeNode(userSequence);
-            PhyloTree tree = new PhyloTree(rootNode, sequenceEvolver);
-            for (int i = 0; i < 5; i++)
-            {
-                tree.EvolveAllChildren(i);
-            }
+            NodeEvolutionScheduler scheduler = new NodeEvolutionScheduler(evolutionTime);
+            PhyloTree tree = new PhyloTree(userSequence, sequenceEvolver, expDistribution, scheduler);
+
+            System.Threading.Thread.Sleep(10000);
+            Console.WriteLine("Attemtping to print tree");
+            Console.WriteLine(tree.PrintTree());
             while (true)
             {
 
             }
+
         }
+
     }
 }

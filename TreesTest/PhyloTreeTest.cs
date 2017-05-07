@@ -12,10 +12,5 @@ namespace TreesTest
     [TestFixture]
     class PhyloTreeTest
     {
-        [Test]
-        public void TestTreeEvolution()
-        {
-
-        }
     }
 }

@@ -48,6 +48,7 @@
     <Compile Include="DnaSequenceEvolver.cs" />
     <Compile Include="EvolutionModel.cs" />
     <Compile Include="ExponentialDistribution.cs" />
+    <Compile Include="NodeEvolutionScheduler.cs" />
     <Compile Include="PhyloTree.cs" />
     <Compile Include="PhyloTreeNode.cs" />
     <Compile Include="Program.cs" />
