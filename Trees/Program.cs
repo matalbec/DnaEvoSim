@@ -12,38 +12,38 @@ namespace Trees
 
         private static PhyloTree tree;
         private static Timer evolutionTimer;
+        private static ProgramSettings settings;
+
+        private static void SetupEnviroment()
+        {
+
+            Program.settings = ProgramSettings.GetSettingsFromConsole();
+
+            ExponentialDistribution.SetupExponentialDistribution(settings.meanValue);
+            EvolutionModel kimuraModel = new EvolutionModel(settings.alpha, settings.beta);
+            DnaSequenceEvolver.SetupEvolver(kimuraModel);
+            NodeEvolutionScheduler.SetupScheduler(settings.evolutionTime);
+
+            //
+            // Setup main evolution timer but don't enable it yet as there is no telling how long will it take the user to input sequence
+            //
+            Program.evolutionTimer = new Timer(settings.evolutionTime);
+            Program.evolutionTimer.Elapsed += new ElapsedEventHandler(Program.EvolutionEndCallback);
+            Program.evolutionTimer.AutoReset = false;
+        }
 
         static void Main(string[] args)
         {
             string userInputSequence = string.Empty;
-            double alpha = 0;
-            double beta = 0;
-            double evolutionTime = 0;
-            double meanValue = 0;
+
+            SetupEnviroment();
 
             Console.WriteLine("Please input root sequence:");
             userInputSequence = Console.ReadLine();
-            Console.WriteLine("Alpha paramter for kimura model:");
-            alpha = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Beta paramter for kimura model:");
-            beta = Convert.ToDouble(Console.ReadLine());
-            Console.WriteLine("Specify evolution time:");
-            evolutionTime = Convert.ToDouble(Console.ReadLine());
-            evolutionTime = evolutionTime * 1000;
-            Console.WriteLine("Specify mean value for exponential distribution");
-            meanValue = Convert.ToDouble(Console.ReadLine());
 
-
-            ExponentialDistribution.SetupExponentialDistribution(meanValue);
-            EvolutionModel kimuraModel = new EvolutionModel(alpha, beta);
-            DnaSequenceEvolver.SetupEvolver(kimuraModel);
             DnaSequence userSequence = new DnaSequence(userInputSequence);
-            NodeEvolutionScheduler.SetupScheduler(evolutionTime);
             PhyloTree tree = new PhyloTree(userSequence);
             Program.tree = tree;
-            Program.evolutionTimer = new Timer(evolutionTime);
-            Program.evolutionTimer.Elapsed += new ElapsedEventHandler(Program.EvolutionEndCallback);
-            Program.evolutionTimer.AutoReset = false;
             Program.evolutionTimer.Enabled = true;
             Console.ReadLine();
         }
