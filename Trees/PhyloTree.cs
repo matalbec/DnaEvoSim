@@ -10,9 +10,9 @@ namespace Trees
     {
         private PhyloTreeNode rootNode;
 
-        public PhyloTree(DnaSequence rootDnaSequence, DnaSequenceEvolver evolver, ExponentialDistribution exp, NodeEvolutionScheduler scheduler)
+        public PhyloTree(DnaSequence rootDnaSequence)
         {
-            this.rootNode = new PhyloTreeNode(rootDnaSequence, evolver, exp, scheduler);
+            this.rootNode = new PhyloTreeNode(rootDnaSequence);
         }
 
         private string PrintTreeRecursive(PhyloTreeNode node, int depthLevel)
@@ -21,8 +21,9 @@ namespace Trees
             List<PhyloTreeNode> children = node.GetChildrenNodes();
             for (int i = 0; i < depthLevel; i++)
             {
-                partialString += "-";
+                partialString += " ";
             }
+            partialString += "-";
             partialString += node.GetNodeSequence();
             partialString += "\n";
             foreach (var childNode in children)

@@ -12,13 +12,19 @@ namespace Trees
         private double overallEvolutionTime;
         private List<Timer> timers;
         private bool SchedulerActive;
+        public static NodeEvolutionScheduler scheduler;
 
-        public NodeEvolutionScheduler(double overallEvolutionTime)
+        private NodeEvolutionScheduler(double overallEvolutionTime)
         {
             this.overallEvolutionTime = overallEvolutionTime;
             this.SchedulerActive = false;
             this.timers = new List<Timer>();
             this.SchedulerActive = true;
+        }
+
+        public static void SetupScheduler(double overallEvolutionTime)
+        {
+            NodeEvolutionScheduler.scheduler = new NodeEvolutionScheduler(overallEvolutionTime);
         }
 
         public void ScheduleNodeEvolution(PhyloTreeNode node, double timeToEvolve)

@@ -9,10 +9,16 @@ namespace Trees
     public class DnaSequenceEvolver
     {
         private EvolutionModel evolutionModel;
+        public static DnaSequenceEvolver evolver;
 
-        public DnaSequenceEvolver(EvolutionModel evolutionModel)
+        private DnaSequenceEvolver(EvolutionModel evolutionModel)
         {
             this.evolutionModel = evolutionModel;
+        }
+
+        public static void SetupEvolver(EvolutionModel model)
+        {
+            DnaSequenceEvolver.evolver = new DnaSequenceEvolver(model);
         }
 
         public DnaSequence Evolve(DnaSequence dnaSequence, double time)

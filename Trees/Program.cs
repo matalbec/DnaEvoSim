@@ -10,7 +10,6 @@ namespace Trees
     class Program
     {
 
-        private static NodeEvolutionScheduler scheduler;
         private static PhyloTree tree;
         private static Timer evolutionTimer;
 
@@ -35,13 +34,12 @@ namespace Trees
             meanValue = Convert.ToDouble(Console.ReadLine());
 
 
-            ExponentialDistribution expDistribution = new ExponentialDistribution(meanValue);
+            ExponentialDistribution.SetupExponentialDistribution(meanValue);
             EvolutionModel kimuraModel = new EvolutionModel(alpha, beta);
+            DnaSequenceEvolver.SetupEvolver(kimuraModel);
             DnaSequence userSequence = new DnaSequence(userInputSequence);
-            DnaSequenceEvolver sequenceEvolver = new DnaSequenceEvolver(kimuraModel);
-            NodeEvolutionScheduler scheduler = new NodeEvolutionScheduler(evolutionTime);
-            Program.scheduler = scheduler;
-            PhyloTree tree = new PhyloTree(userSequence, sequenceEvolver, expDistribution, scheduler);
+            NodeEvolutionScheduler.SetupScheduler(evolutionTime);
+            PhyloTree tree = new PhyloTree(userSequence);
             Program.tree = tree;
             Program.evolutionTimer = new Timer(evolutionTime);
             Program.evolutionTimer.Elapsed += new ElapsedEventHandler(Program.EvolutionEndCallback);
@@ -52,7 +50,7 @@ namespace Trees
 
         static void EvolutionEndCallback(object sender, ElapsedEventArgs args)
         {
-            Program.scheduler.StopScheduler();
+            NodeEvolutionScheduler.scheduler.StopScheduler();
             Console.WriteLine("Printing Tree:");
             Console.WriteLine(Program.tree.PrintTree());
         }

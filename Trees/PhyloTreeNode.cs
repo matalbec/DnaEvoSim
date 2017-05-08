@@ -11,37 +11,25 @@ namespace Trees
     {
         private DnaSequence dnaSequence;
         private List<PhyloTreeNode> childrenNodes;
-        private DnaSequenceEvolver evolver;
         private double timeFromStart;
-        private NodeEvolutionScheduler scheduler;
-        private ExponentialDistribution exp;
 
-        //
-        //@TODO: Refactor those constructors to use static members
-        //
-        public PhyloTreeNode(PhyloTreeNode parent, DnaSequence dnaSequence, DnaSequenceEvolver evolver, ExponentialDistribution exp, NodeEvolutionScheduler scheduler)
+        public PhyloTreeNode(PhyloTreeNode parent, DnaSequence dnaSequence)
         {
             this.dnaSequence = dnaSequence;
-            double timeToEvolve = exp.NextDouble();
-            this.exp = exp;
-            this.evolver = evolver;
-            this.scheduler = scheduler;
+            double timeToEvolve = ExponentialDistribution.randomExponential.NextDouble();
             this.timeFromStart = parent.GetTimeFromStart() + timeToEvolve;
             this.childrenNodes = new List<PhyloTreeNode>();
-            scheduler.ScheduleNodeEvolution(this, timeToEvolve);
+            NodeEvolutionScheduler.scheduler.ScheduleNodeEvolution(this, timeToEvolve);
         }
 
         // Constructor for root node
-        public PhyloTreeNode(DnaSequence dnaSequence, DnaSequenceEvolver evolver, ExponentialDistribution exp, NodeEvolutionScheduler scheduler)
+        public PhyloTreeNode(DnaSequence dnaSequence)
         {
             this.dnaSequence = dnaSequence;
-            double timeToEvolve = exp.NextDouble();
-            this.exp = exp;
-            this.evolver = evolver;
-            this.scheduler = scheduler;
+            double timeToEvolve = ExponentialDistribution.randomExponential.NextDouble();
             this.timeFromStart = timeToEvolve;
             this.childrenNodes = new List<PhyloTreeNode>();
-            scheduler.ScheduleNodeEvolution(this, timeToEvolve);
+            NodeEvolutionScheduler.scheduler.ScheduleNodeEvolution(this, timeToEvolve);
         }
 
         public void EvolveNodeCallback(object sender, ElapsedEventArgs args)
@@ -51,12 +39,12 @@ namespace Trees
 
         private void Evolve()
         {
-            DnaSequence evolvedDnaSequence1 = this.evolver.Evolve(this.dnaSequence, this.timeFromStart);
-            DnaSequence evolvedDnaSequence2 = this.evolver.Evolve(this.dnaSequence, this.timeFromStart);
+            DnaSequence evolvedDnaSequence1 = DnaSequenceEvolver.evolver.Evolve(this.dnaSequence, this.timeFromStart);
+            DnaSequence evolvedDnaSequence2 = DnaSequenceEvolver.evolver.Evolve(this.dnaSequence, this.timeFromStart);
             List<PhyloTreeNode> childrenNodes = new List<PhyloTreeNode>()
             {
-                new PhyloTreeNode(this, evolvedDnaSequence1, this.evolver, this.exp, this.scheduler),
-                new PhyloTreeNode(this, evolvedDnaSequence2, this.evolver, this.exp, this.scheduler)
+                new PhyloTreeNode(this, evolvedDnaSequence1),
+                new PhyloTreeNode(this, evolvedDnaSequence2)
             };
             this.childrenNodes = childrenNodes;
         }

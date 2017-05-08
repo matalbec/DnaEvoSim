@@ -12,13 +12,18 @@ namespace TreesTest
     [TestFixture]
     class DnaSequenceEvolverTest
     {
+        [OneTimeSetUp]
+        public void TestSetup()
+        {
+            EvolutionModel kimuraModel = new EvolutionModel(0.1, 0.3);
+            DnaSequenceEvolver.SetupEvolver(kimuraModel);
+        }
+
         [Test]
         public void TestEvolution()
         {
-            EvolutionModel kimuraModel = new EvolutionModel(0.1, 0.3);
-            DnaSequenceEvolver evolver = new DnaSequenceEvolver(kimuraModel);
             DnaSequence dnaSequence = new DnaSequence("AAA");
-            DnaSequence evolvedSequence = evolver.Evolve(dnaSequence, 1);
+            DnaSequence evolvedSequence = DnaSequenceEvolver.evolver.Evolve(dnaSequence, 1);
             Assert.AreEqual(dnaSequence.Size(), evolvedSequence.Size());
         }
     }

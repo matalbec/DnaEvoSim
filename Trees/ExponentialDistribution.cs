@@ -9,11 +9,17 @@ namespace Trees
     public class ExponentialDistribution
     {
         private double meanValue;
-        static private Random randomUniform = new Random();
+        private static Random randomUniform = new Random();
+        public static ExponentialDistribution randomExponential;
 
-        public ExponentialDistribution(double meanValue)
+        private ExponentialDistribution(double meanValue)
         {
             this.meanValue = meanValue;
+        }
+
+        public static void SetupExponentialDistribution(double meanValue)
+        {
+            ExponentialDistribution.randomExponential = new ExponentialDistribution(meanValue);
         }
 
         //Scaled in ms
