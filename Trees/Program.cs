@@ -16,7 +16,6 @@ namespace Trees
 
         private static void SetupEnviroment()
         {
-
             Program.settings = ProgramSettings.GetSettingsFromConsole();
 
             ExponentialDistribution.SetupExponentialDistribution(settings.meanValue);

@@ -17,15 +17,9 @@ namespace Trees
 
         private string PrintTreeRecursive(PhyloTreeNode node, int depthLevel)
         {
-            string partialString = string.Empty;
+            string partialString = new string(' ', depthLevel);
             List<PhyloTreeNode> children = node.GetChildrenNodes();
-            for (int i = 0; i < depthLevel; i++)
-            {
-                partialString += " ";
-            }
-            partialString += "-";
-            partialString += node.GetNodeSequence();
-            partialString += "\n";
+            partialString += $"-{node.GetNodeSequence()}\n";
             foreach (var childNode in children)
             {
                 partialString += this.PrintTreeRecursive(childNode, depthLevel + 1);

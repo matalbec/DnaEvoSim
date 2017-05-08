@@ -13,7 +13,7 @@ namespace Trees
         private List<PhyloTreeNode> childrenNodes;
         private double timeFromStart;
 
-        public PhyloTreeNode(PhyloTreeNode parent, DnaSequence dnaSequence)
+        private PhyloTreeNode(PhyloTreeNode parent, DnaSequence dnaSequence)
         {
             this.dnaSequence = dnaSequence;
             double timeToEvolve = ExponentialDistribution.randomExponential.NextDouble();

@@ -104,6 +104,11 @@ namespace Trees
             return new DnaSequence(dnaSequenceAsString);
         }
 
+        public override string ToString()
+        {
+            return this.PrintSequence();
+        }
+
         System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
             return this.GetEnumerator();

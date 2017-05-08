@@ -82,7 +82,7 @@ namespace Trees
 
         public static implicit operator char(DnaBase dnaBase)
         {
-            return dnaBase.ToString().ElementAt(0);
+            return dnaBase.ToString().First();
         }
 
         public override string ToString()
