@@ -36,8 +36,8 @@ namespace Trees
                 {
                     this.TransversionProbability,
                     this.SelfTransitionProbability,
-                    this.TransitionProbability,
-                    this.TransversionProbability
+                    this.TransversionProbability,
+                    this.TransitionProbability
                 },
                 new List<EvolutionProbability>() // Guanine row
                 {
