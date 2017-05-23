@@ -24,11 +24,10 @@ namespace Trees
         public DnaSequence Evolve(DnaSequence dnaSequence, double time)
         {
             DnaSequence evolvedDnaSequence = new DnaSequence(dnaSequence.Size());
-            Parallel.For(0, dnaSequence.Size(), (i) =>
+            for (int i = 0; i < dnaSequence.Size(); i++)
             {
-                evolvedDnaSequence[i] = this.evolutionModel.GenerateNextBase(dnaSequence.ElementAt((int)i), time);
+                evolvedDnaSequence[i] = this.evolutionModel.GenerateNextBase(dnaSequence.ElementAt(i), time);
             }
-            );
             return evolvedDnaSequence;
         }
     }

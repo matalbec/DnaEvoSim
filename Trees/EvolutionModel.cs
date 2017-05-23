@@ -85,14 +85,26 @@ namespace Trees
             return TransitionVector;
         }
 
-        private double TransitionProbability(double time)
-        {
-            return (1 - Math.Exp(-4 * this.betaParam * time)) / 4.0;
-        }
-
         private double TransversionProbability(double time)
         {
-            return (1 + Math.Exp(-4 * this.betaParam * time) - (2 * Math.Exp(-2 * (this.alphaParam + this.betaParam) * time))) / 4.0;
+            if (this.betaParam == 0)
+            {
+                return 0;
+            } else
+            {
+                return (1 - Math.Exp(-4 * this.betaParam * time)) / 4.0;
+            }
+        }
+
+        private double TransitionProbability(double time)
+        {
+            if (this.alphaParam == 0)
+            {
+                return 0;
+            } else
+            {
+                return (1 + Math.Exp(-4 * this.betaParam * time) - (2 * Math.Exp(-2 * (this.alphaParam + this.betaParam) * time))) / 4.0;
+            }
         }
 
         private double SelfTransitionProbability(double time)
