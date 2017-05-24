@@ -12,11 +12,13 @@ namespace Trees
         private DnaSequence dnaSequence;
         private List<PhyloTreeNode> childrenNodes;
         private double timeFromStart;
+        public double creationTime;
 
         private PhyloTreeNode(PhyloTreeNode parent, DnaSequence dnaSequence)
         {
             this.dnaSequence = dnaSequence;
             double timeToEvolve = ExponentialDistribution.randomExponential.NextDouble();
+            this.creationTime = parent.GetTimeFromStart();
             this.timeFromStart = parent.GetTimeFromStart() + timeToEvolve;
             this.childrenNodes = new List<PhyloTreeNode>();
             NodeEvolutionScheduler.scheduler.ScheduleNodeEvolution(this, timeToEvolve);
@@ -28,6 +30,7 @@ namespace Trees
             this.dnaSequence = dnaSequence;
             double timeToEvolve = ExponentialDistribution.randomExponential.NextDouble();
             this.timeFromStart = timeToEvolve;
+            this.creationTime = 0;
             this.childrenNodes = new List<PhyloTreeNode>();
             NodeEvolutionScheduler.scheduler.ScheduleNodeEvolution(this, timeToEvolve);
         }

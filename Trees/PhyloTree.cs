@@ -19,7 +19,7 @@ namespace Trees
         {
             string partialString = new string(' ', depthLevel);
             List<PhyloTreeNode> children = node.GetChildrenNodes();
-            partialString += $"-{node.GetNodeSequence()}\n";
+            partialString += $"-{node.GetNodeSequence()}; Edge: {node.creationTime}ms\n";
             foreach (var childNode in children)
             {
                 partialString += this.PrintTreeRecursive(childNode, depthLevel + 1);

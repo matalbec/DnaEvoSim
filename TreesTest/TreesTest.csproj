@@ -47,6 +47,7 @@
     <Compile Include="DnaBaseTest.cs" />
     <Compile Include="DnaSequenceEvolverTest.cs" />
     <Compile Include="DnaSequenceTest.cs" />
+    <Compile Include="EvolutionModelTest.cs" />
     <Compile Include="PhyloTreeNodeTest.cs" />
     <Compile Include="PhyloTreeTest.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

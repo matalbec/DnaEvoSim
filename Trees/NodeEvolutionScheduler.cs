@@ -19,7 +19,6 @@ namespace Trees
             this.overallEvolutionTime = overallEvolutionTime;
             this.SchedulerActive = false;
             this.timers = new List<Timer>();
-            this.SchedulerActive = true;
         }
 
         public static void SetupScheduler(double overallEvolutionTime)
@@ -39,9 +38,19 @@ namespace Trees
             }
         }
 
+        public void StartScheduler()
+        {
+            this.SchedulerActive = true;
+        }
+
         public void StopScheduler()
         {
             this.SchedulerActive = false;
+            foreach(var timer in this.timers)
+            {
+                timer.Enabled = false;
+                timer.Close();
+            }
         }
     }
 }

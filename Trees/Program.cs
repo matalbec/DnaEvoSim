@@ -41,6 +41,7 @@ namespace Trees
             userInputSequence = Console.ReadLine();
 
             DnaSequence userSequence = new DnaSequence(userInputSequence);
+            NodeEvolutionScheduler.scheduler.StartScheduler();
             PhyloTree tree = new PhyloTree(userSequence);
             Program.tree = tree;
             Program.evolutionTimer.Enabled = true;
